@@ -1,0 +1,25 @@
+CREATE TABLE Users(
+userID INT AUTO_INCREMENT PRIMARY KEY,
+firstName VARCHAR(30) NOT NULL,
+lastName VARCHAR(30) NOT NULL, 
+gender VARCHAR(10) NOT NULL,
+cellphoneNumber VARCHAR(12) NOT NULL,
+emailAdd VARCHAR(45) UNIQUE NOT NULL,
+userPass TEXT NOT NULL,
+userRole VARCHAR(5) NOT NULL,
+userProfile TEXT,
+joinDate DATE );
+
+CREATE TABLE Products(
+id INT PRIMARY KEY AUTO_INCREMENT,
+prodName VARCHAR(50),
+prodDescription TEXT,
+category VARCHAR(25),
+price DECIMAL(10, 2),
+prodQuantity INT,
+imgURL TEXT,
+userID INT, FOREIGN KEY (userID)
+REFERENCES Users(userID)
+ON DELETE CASCADE
+ON UPDATE CASCADE);
+
