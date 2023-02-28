@@ -51,9 +51,9 @@ class User {
             SELECT userID, firstName, lastName, gender, emailAdd, userRole, userProfile FROM Users;
             `;
 
-    db.query(strQry, (err, data) => {
+    database.query(strQry, (err, data) => {
       if (err) throw err;
-      else res.state(200).json({ results: data });
+      else res.status(200).json({ results: data });
     });
   }
   fetchUser(req, res) {
@@ -62,9 +62,9 @@ class User {
             WHERE userID = ?;
             `;
 
-    db.query(strQry, [req.params.id], (err, data) => {
+    database.query(strQry, [req.params.id], (err, data) => {
       if (err) throw err;
-      else res.state(200).json({ result: data });
+      else res.status(200).json({ result: data });
     });
   }
   async createUser(req, res) {
@@ -78,7 +78,7 @@ class User {
     };
     const strQry = `INSERT INTO Users
             SET ?;`;
-    db.query(strQry, [detail], (err) => {
+    database.query(strQry, [detail], (err) => {
       if (err) {
         res.status(401).json({ err });
       } else {
@@ -94,7 +94,7 @@ class User {
   }
   updateUser(req, res) {
     let data = req.body;
-    if (data.userPass !== null || data.userPass !== undefined)
+    if (data.userPass != null || data.userPass != undefined)
       data.userPass = hashSync(data.userPass, 15);
     const strQry = `
             UPDATE Users
@@ -102,7 +102,7 @@ class User {
             WHERE userID = ?;
             `;
     //db
-    db.query(strQry, [data, req.params.id], (err) => {
+    database.query(strQry, [data, req.params.id], (err) => {
       if (err) throw err;
       res.status(200).json({ msg: "A row was affected successfuly" });
     });
@@ -113,7 +113,7 @@ class User {
             WHERE userID = ?;
             `;
     //db
-    db.query(strQry, [req.params.id], (err) => {
+    database.query(strQry, [req.params.id], (err) => {
       if (err) throw err;
       res.status(200).json({ msg: "A record was removed from a database" });
     });
@@ -124,7 +124,7 @@ class Product {
   fetchProducts(req, res) {
     const strQry = `SELECT id, prodName, prodDescription, category, price, prodQuantity, imgURL
                 FROM Products;`;
-    db.query(strQry, (err, results) => {
+    database.query(strQry, (err, results) => {
       if (err) throw err;
       res.status(200).json({ results: results });
     });
@@ -133,7 +133,7 @@ class Product {
     const strQry = `SELECT id, prodName, prodDescription, category, price, prodQuantity, imgURL
                 FROM Products
                 WHERE id = ?;`;
-    db.query(strQry, [req.params.id], (err, results) => {
+    database.query(strQry, [req.params.id], (err, results) => {
       if (err) throw err;
       res.status(200).json({ results: results });
     });
@@ -143,7 +143,7 @@ class Product {
                 INSERT INTO Products
                 SET ?;
                 `;
-    db.query(strQry, [req.body], (err) => {
+    database.query(strQry, [req.body], (err) => {
       if (err) {
         res
           .status(400)
@@ -159,7 +159,7 @@ class Product {
                 SET ?
                 WHERE id = ?
                 `;
-    db.query(strQry, [req.body, req.params.id], (err) => {
+    database.query(strQry, [req.body, req.params.id], (err) => {
       if (err) {
         res
           .status(400)
@@ -174,7 +174,7 @@ class Product {
                 DELETE FROM Products
                 WHERE id = ?;
                 `;
-    db.query(strQry, [req.params.id], (err) => {
+    database.query(strQry, [req.params.id], (err) => {
       if (err) res.status(400).json({ err: "The record was not found." });
       res.status(200).json({ msg: "A product was deleted." });
     });

@@ -35,4 +35,4 @@ app.listen(port, ()=> {
     console.log(`Server is running at port ${port}`);
 });
 //error handling
-app.use(ErrHandling);
+// app.use(ErrHandling);
