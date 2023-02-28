@@ -41,6 +41,8 @@ export default {
 
 .contactsec{
     margin-top: 80px;
+    justify-content: center;
+    align-items: center;
 }
 .form-control{
 border: 1px solid rgb(0, 0, 0);
@@ -49,7 +51,6 @@ color: rgb(0, 0, 0);
 }
 
 .subButton{
-    justify-content: center;
 font-size: 18px;
 width: 60%;
 border: 1px solid rgb(0, 0, 0);

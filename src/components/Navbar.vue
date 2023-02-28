@@ -4,6 +4,7 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <span class="name">Sneaker Station</span>
           <button type="button" class="btn position-relative">
             <i class="fa fa-shopping-cart cart"></i>
   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill numbers">
@@ -72,6 +73,10 @@ nav a.router-link-exact-active {
 }
 .cart{
     font-size: 29px;
+}
+
+.name{
+  font-family: 'Rock Salt', cursive !important;
 }
 
 .numbers{

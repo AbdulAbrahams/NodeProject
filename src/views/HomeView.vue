@@ -14,3 +14,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.home{
+  min-height: 100vh;
+}
+</style>
