@@ -107,6 +107,21 @@ class User {
       res.status(200).json({ msg: "A row was affected successfuly" });
     });
   }
+  forgotPassword(req, res) {
+    let data = req.body;
+    if (data.userPass != null || data.userPass != undefined)
+      data.userPass = hashSync(data.userPass, 15);
+      const strQry = `
+      UPDATE Users
+            SET ?
+            WHERE userID = ?;
+      `
+          //db
+    database.query(strQry, [data, req.params.id], (err) => {
+      if (err) throw err;
+      res.status(200).json({ msg: "Password successfuly updated" });
+    });
+  }
   deleteUser(req, res) {
     const strQry = `
             DELETE FROM Users

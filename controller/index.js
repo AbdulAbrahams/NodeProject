@@ -33,6 +33,10 @@ route.post('/register', bodyParser.json(), (req, res) => {
 route.put('/user/:id', bodyParser.json(), (req, res) => {
     user.updateUser(req, res);
 });
+        //forgot password
+route.put('/reset-password:/id', bodyParser.json(), (req, res) => {
+    user.forgotPassword(req, res);
+})
         //delete 
 route.delete('/user/:id', (req, res) => {
     user.deleteUser(req, res);
