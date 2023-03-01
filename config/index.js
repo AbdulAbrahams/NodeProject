@@ -4,7 +4,7 @@ const {createConnection} = require("mysql");
 
 // CONNECTION VARIABLE
 let connection = createConnection({
-    host: process.env.DBhost,
+    host: process.env.DBHost,
     user: process.env.DBuser,
     password: process.env.DBpassword,
     port: process.env.DBport,
