@@ -7,9 +7,9 @@
           <span class="name">Sneaker Station</span>
           <button type="button" class="btn position-relative">
             <i class="fa fa-shopping-cart cart"></i>
-  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill numbers">
+  <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill numbers">
     0
-  </span>
+  </span> -->
 </button>
           <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
@@ -21,13 +21,13 @@
             </div>
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" data-bs-dismiss="offcanvas">
-                <li class="nav-item my-3 mx-2">
+                <li class="nav-item my-4 mx-2">
                     <router-link to="/">Home</router-link>
                 </li>
-                <li class="nav-item my-3 mx-2">
+                <li class="nav-item my-4 mx-2">
                     <router-link to="/admin">Admin</router-link>
                 </li>
-                <li class="nav-item my-3 mx-2">
+                <li class="nav-item my-4 mx-2">
                     <router-link to="/contact">Contact</router-link>
                 </li>
               </ul>
@@ -61,12 +61,14 @@ nav {
 }
 
 nav a {
+  font-size: 20px;
+  text-decoration: none;
   font-weight: bold;
-  color: #2c3e50;
+  color: #000000;
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #cd0808;
 }
 .navbar-toggler{
     border: 2px solid grey;

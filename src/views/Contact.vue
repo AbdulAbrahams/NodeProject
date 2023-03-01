@@ -40,7 +40,7 @@ export default {
 <style scoped>
 
 .contactsec{
-    margin-top: 80px;
+    margin-top: 100px;
     justify-content: center;
     align-items: center;
 }
