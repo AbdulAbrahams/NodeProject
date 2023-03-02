@@ -2,40 +2,36 @@
     <div class="body">
         <div class="loginbox">
             <h1 class="my-5">Register</h1>
-            <form action="/register" method="post" class="mx-4 my-5">
+            <form @submit.prevent="registerForm" method="POST" class="mx-4 my-5">
                 <div class="row">
         <div class="col">
             <p>FirstName</p>
-          <input type="text" class="form-control" name="name" placeholder="Enter FirstName" aria-label="First name" required>
+          <input type="text" class="form-control" v-model="register.firstName" name="firstName" placeholder="Enter FirstName" aria-label="First name" required="">
         </div>
         <div class="col">
             <p>LastName</p>
-          <input type="text" class="form-control" name="lastname" placeholder="Enter LastName" aria-label="Last name" required>
+          <input type="text" class="form-control" v-model="register.lastName" name="lastName" placeholder="Enter LastName" aria-label="Last name" required="">
         </div>
       </div>
       <div class="row">
         <div class="col">
             <p>Email</p>
-          <input type="text" class="form-control" name="name" placeholder="Enter Email" aria-label="First name" required>
-        </div>
-        <div class="col">
-            <p>Phone Number</p>
-          <input type="text" class="form-control" name="lastname" placeholder="Enter Phone Number" aria-label="Last name" required>
+          <input type="text" class="form-control" v-model="register.emailAdd" name="emailAdd" placeholder="Enter Email" aria-label="First name" required="">
         </div>
       </div>
       <div class="row">
         <div class="col">
             <p>Gender</p>
-          <input type="text" class="form-control" name="name" placeholder="First name" aria-label="First name" required>
+          <input type="text" class="form-control" v-model="register.gender" name="gender" placeholder="First name" aria-label="First name" required="">
         </div>
         <div class="col">
             <p>Password</p>
-          <input type="text" class="form-control" name="lastname" placeholder="Enter Password" aria-label="Last name" required>
+          <input type="password" class="form-control"  v-model="register.userPass" name="userPass" placeholder="Enter Password" aria-label="Last name" required="">
         </div>
       </div>
 
 <div>
-<button class="btn btn-light" type="submit" value="LOGIN">Register</button>
+<button class="btn btn-light" value="register" @click="submit">Register</button>
 </div>
 
 <router-link to="/login"><a href="">Already have an account?</a></router-link>
@@ -49,7 +45,30 @@
 
 <script>
     export default {
-        
+        name: 'Register',
+        data() {
+        return {
+            register: {
+            firstName: "",
+            lastName: "",
+            emailAdd: "",
+            gender: "",
+            userPass: "", 
+            }
+            
+        };
+    },
+    methods: {
+        async RegisterForm() {
+           await this.$store.dispatch(("RegisterForm", this.register), {
+                firstName: this.firstName,
+                lastName: this.lastName,
+                email: this.emailAdd,
+                gender: this.gender,
+                userPass: this.userPass,
+            });
+        }
+    }
     }
 </script>
 

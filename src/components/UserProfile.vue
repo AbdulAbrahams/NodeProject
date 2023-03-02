@@ -1,15 +1,15 @@
 <template>
     <div class="profile">
         <h1 class="mx-5">Profile</h1>
-        <div class="container">
-            <div class="main">
-                <div class="row">
+        <div class="container" v-for="user in users" :key="user.id">
+            <div class="main" :data-bs-target="`#ProfUser${user.userID}`">
+                <div class="row" :id="`ProfUser${user.userID}`">
                     <div class="col md-4 mt-1">
                         <div class="card text-center sidebar">
                             <div class="card-body">
-                                <img src="https://i.postimg.cc/q7tPbdZY/samsung-uk-MBRr-Xdf8i-SQ-unsplash.jpg" alt="" class="my-4">
+                                <img :src="user.userProfile" alt="" class="my-4">
                                 <div class="card-text">
-                                    <h3 class="my-4">Abdul Abrahams</h3>
+                                    <h3 class="my-4">{{ user.firstName }} {{ user.lastName }}</h3>
                                     <a href="/login" class="logBut bg-white mx-5 my-3 p-2 px-5">Log Out</a>
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                                     Full Name
                                 </div>
                                 <div class="col-8">
-                                    Abdul Wahhaab Abrahams
+                                    {{ user.firstName }} {{ user.lastName }}
                                 </div>
                             </div>
                             <div class="row my-5 aboutRow">
@@ -31,15 +31,15 @@
                                     Email
                                 </div>
                                 <div class="col-8">
-                                    abdulabrahams2002@gmail.com
+                                    {{ user.emailAdd }}
                                 </div>
                         </div>
                         <div class="row my-5 aboutRow">
                                 <div class="col aboutHead">
-                                    Phone Number
+                                    Role
                                 </div>
                                 <div class="col-8">
-                                    0834004653
+                                    {{ user.userRole }}
                                 </div>
                     </div>
                     <div class="row my-5 aboutRow">
@@ -47,7 +47,7 @@
                                     Gender
                                 </div>
                                 <div class="col-8">
-                                    Male
+                                    {{ user.gender }}
                                 </div>
                     </div>
                 </div>
@@ -59,15 +59,35 @@
 </template>
 
 <script>
+import axios from "axios";
     export default {
-        name: 'UserProfile'
-    }
+        name: 'UserProfile',
+        data() {
+       return {
+           users: []
+       };
+   },
+   created() {
+       this.fetchUsers();
+   },
+   methods: {
+    async fetchUsers() {
+           try{
+               const response = await axios.get("https://sneaker-station-sqk8.onrender.com/users");
+               this.users = response.data.results;
+               console.log(response);
+           } catch (err) {
+               console.log(err);
+           }
+       },
+   },
+};
 </script>
 
 <style scoped>
 .profile{
     overflow-x: hidden;
-    margin-top: 80px;
+    margin-top: 120px;
     min-height: 100vh;
 }
 

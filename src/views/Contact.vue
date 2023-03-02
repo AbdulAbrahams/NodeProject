@@ -1,4 +1,5 @@
 <template>
+  <Navbar/>
     <div class="contactsec container-lg" id="Contact">
   <h1 class="contact" style="padding-bottom: 4%; color: black;">Contact Me</h1>
   <form action="https://formspree.io/f/xzbwjdvo" method="POST" class="form" style="padding-bottom: 7%;">
@@ -24,11 +25,14 @@
       <button type="submit" class="btn subButton" name="submit">Submit</button>
     </form>   
 </div>
-
+<Footer/>
 </template>
 
 <script>
+import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
 export default {
+  components: {Navbar, Footer},
   methods: {
   scrollTop() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -40,7 +44,7 @@ export default {
 <style scoped>
 
 .contactsec{
-    margin-top: 100px;
+    margin-top: 120px;
     justify-content: center;
     align-items: center;
 }

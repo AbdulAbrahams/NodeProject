@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-light bg-transparent fixed-top">
+    <nav class="navbar navbar-light fixed-top">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -12,10 +12,10 @@
   </span> -->
 </button>
           <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-      <a href="/profile" class="d-flex align-items-center link-dark text-decoration-none my-3 mx-2">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>Abdul Abrahams</strong>
+            <div class="offcanvas-header" v-for="user in users" :key="user.userID">
+      <a href="/profile" class="d-flex align-items-center link-dark text-decoration-none my-3 mx-2" :data-bs-target="`#NavUser${user.userID}`">
+        <img :src="user.userProfile" alt="" width="32" height="32" class="rounded-circle me-2">
+        <strong>{{ user.firstName }} {{ user.lastName }}</strong>
       </a>
             <button type="button" class="btn-close btn-light text-reset mx-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
@@ -40,20 +40,42 @@
 </template>
 
 <script>
+import axios from "axios";
     export default {
-        name: 'Navbar'
-    }
+        name: 'Navbar',
+        data() {
+       return {
+           users: []
+       };
+   },
+   created() {
+       this.fetchUsers();
+   },
+   methods: {
+    async fetchUsers() {
+           try{
+               const response = await axios.get("https://sneaker-station-sqk8.onrender.com/users");
+               this.users = response.data.results;
+               console.log(response);
+           } catch (err) {
+               console.log(err);
+           }
+       },
+   },
+};
+
 </script>
 
 <style  scoped>
 
 .navbar{
-    opacity: 92%;
+  background-color: white;
+    opacity: 97%;
 }
 
 .offcanvas{
     background-color: rgb(242, 242, 242);
-    max-width: 55vw;
+    max-width: 70vw;
 }
 
 nav {

@@ -1,4 +1,5 @@
 <template>
+  <Navbar/>
   <div class="home">
     <div class="container">
       <h1>Welcome</h1>
@@ -10,70 +11,67 @@
               <h1 class="prodHead">Our Products</h1>
               <div class="container">
                   <div class="box">
-            <input type="text" placeholder="Search">
-            <i class="fa-solid fa-magnifying-glass"></i>
+                    <div class="search">
+                 <input class="filter-input" id="search" v-model="search" type="text" placeholder="Search">
+             </div>
           </div>
               </div>
-              <div class="col-md-4 mt-5" v-for="item in items" :key="item.id">
-                <div class="card" >
-                  <img :src="item.imgURL" alt="" class="card-img-top w-100" style="height: 270px;">
-                  <div class="card-body">
-                    <h3 class="card-title">{{ item.prodName }}</h3>
-                      <div class="d-flex justify-content-between">
-                        <p>{{ item.prodDescription }}</p>
-                        <p>R{{ item.price }}</p>
-                      </div>
-                      <button type="button" data-name="${Data.Name}" data-price="${Data.Price}" data-brand="${Data.Brand}" class="btn btn-sm btn-dark" id="addShoe" onclick="shoeAdd()">View More</button>
-                  </div>
-                </div>
-              </div>
+              <Product/>
             </div>
           </div>
           
           
     </div>
+    <Footer/>
 </template>
 
 <script>
-import axios from "axios";
+import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
+import Product from '../components/Product.vue'
 export default {
   name: 'HomeView',
   components: {
-  
+   Navbar, Product, Footer
   },
-  data() {
-       return {
-           items: [],
-       };
-   },
-   created() {
-       this.getProducts();
-   },
-   methods: {
-       async getProducts() {
-           try{
-               const response = await axios.get("https://sneaker-station-sqk8.onrender.com/products");
-               this.items = response.data.results;
-               console.log(response);
-           } catch (err) {
-               console.log(err);
-           }
+  computed: {
+       sortedAndFilteredProducts() {
+           let sortedProducts = this.sortProducts();
+           let filteredProducts = this.filteredProducts(sortedProducts);
+           let searchedProducts = this.searchProducts(filteredProducts);
+           return searchedProducts;
        },
-       async deleteProduct(id) {
-           try {
-               await axios.delete(`https://sneaker-station-sqk8.onrender.com/products/${id}`);
-               this.getProducts();
-           } catch(err) {
-               console.log(err);
-           }
-       },
-   },
-};
+    methods: {
+        sortProducts() {
+            let sortKey = this.sortBy;
+            return this.products.sort((a, b) => {
+                if (a[sortKey] < b[sortKey]) return -1;
+                if (a[sortKey] > b[sortKey]) return 1;
+                return 0;
+            });
+        },
+        filteredProducts(products) {
+            if (this.filterBy === 'all') {
+                return products;
+            } else {
+                return products.filter(product => product.category === this.filterBy);
+            }
+        },
+        searchProducts(products) {
+            if (this.search === '') {
+                return products;
+            } else {
+                return products.filter(product => product.name.toLowerCase().includes(this.search.toLowerCase()));
+            }
+        }
+    }
+}
+}
 </script>
 
 <style>
 .home{
-  margin-top: 100px;
+  margin-top: 120px;
   min-height: 100vh;
 }
 
@@ -94,9 +92,5 @@ export default {
   width: 240px;
   border: none;
   outline: none;
-}
-
-.prodHead{
-  text-align: center;
 }
 </style>

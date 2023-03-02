@@ -1,13 +1,18 @@
 <template>
+    <Navbar/>
+
     <UserProfile/>
+    <Footer/>
 </template>
 
 <script>
+import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
 import UserProfile from '../components/UserProfile.vue'
     export default {
         name: 'Profile',
         components: {
-            UserProfile
+            Navbar , UserProfile, Footer
         },
         data() {
        return {
