@@ -11,6 +11,7 @@ export default createStore({
     product: null,
     token: null,
     showSpinner:true,
+    showLoading: true,
     asc: true
   },
   getters: {

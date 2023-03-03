@@ -3,7 +3,7 @@
   <div class="home">
     <div class="container text">
       <h1>Welcome</h1>
-      <p>We Sell a Variety of Shoes to meet your pleasure!</p>
+      <p>Sneaker Station is your no.1 station to find only the best of quality made sneakers and best designs to fit your style.</p>
     </div>
   
           <div class="container">
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Navbar from '../components/Navbar.vue';
 import Footer from '../components/Footer.vue';
 import Product from '../components/Product.vue'

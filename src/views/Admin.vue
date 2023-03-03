@@ -73,7 +73,7 @@
               <p>Profile Image</p>
               <input class="col-12 my-3" id="img" type="text" :value="user.userProfile" required>
               <div class="modal-footer">
-                  <button type="Submit" class="btn btn-light" data-bs-dismiss="modal" id="submit" value="submit">Edit User</button>
+                  <button type="Submit" @click="editUser" class="btn btn-light" data-bs-dismiss="modal" id="submit" value="submit">Edit User</button>
               </div>
           </form>
         </div>
@@ -155,7 +155,7 @@
                 <p>Image URL</p>
                 <input class="col-12 my-3" id="img" type="text" :value="item.imgURL" required>
                 <div class="modal-footer">
-                    <button type="Submit" class="btn btn-light" data-bs-dismiss="modal" id="submit" value="submit">Edit Product</button>
+                    <button type="Submit" @click="editProduct" class="btn btn-light" data-bs-dismiss="modal" id="submit" value="submit">Edit Product</button>
                 </div>
               </div>
           
@@ -198,9 +198,15 @@ import UpdateUser from "../components/UpdateUser.vue";
        this.fetchUsers();
    },
    methods: {
-    editUser() {
-            return this.$store.dispatch("editUser", this.user)
-        },
+    async editUser(id) {
+           try {
+               await axios.put(`https://sneaker-station-sqk8.onrender.com/users${id}`);
+               this.fetchUsers();
+           } catch(err) {
+               console.log(err);
+           }
+       },
+    
     async fetchUsers() {
            try{
                const response = await axios.get("https://sneaker-station-sqk8.onrender.com/users");
@@ -224,6 +230,14 @@ import UpdateUser from "../components/UpdateUser.vue";
                this.items = response.data.results;
                console.log(response);
            } catch (err) {
+               console.log(err);
+           }
+       },
+       async editProduct(id) {
+           try {
+               await axios.put(`https://sneaker-station-sqk8.onrender.com/products${id}`);
+               this.fetchUsers();
+           } catch(err) {
                console.log(err);
            }
        },
