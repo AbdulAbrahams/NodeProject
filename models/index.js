@@ -10,8 +10,9 @@ let { createToken } = require("../middleware/AuthenticatedUser");
 class User {
   login(req, res) {
     const { emailAdd, userPass } = req.body;
-    const strQry = `
-        SELECT userID, firstName, lastName, gender, emailAdd, userPass, userRole, userProfile FROM Users WHERE emailAdd = ${emailAdd};
+    const strQry = `SELECT userID, firstName, lastName, gender, emailAdd, userPass, userRole, userProfile 
+    FROM Users 
+    WHERE emailAdd = '${emailAdd}';
         `;
 
     database.query(strQry, async (err, data) => {
@@ -20,7 +21,7 @@ class User {
         res.status(401).json({ err: "Incorrect email address" });
       } else {
         await compare(userPass, data[0].userPass, (cErro, cResult) => {
-          if (cErr) throw cErr;
+          if (cErro) throw cErro;
           //create token
           const jwToken = createToken({
             emailAdd,
@@ -111,12 +112,12 @@ class User {
     let data = req.body;
     if (data.userPass != null || data.userPass != undefined)
       data.userPass = hashSync(data.userPass, 15);
-      const strQry = `
+    const strQry = `
       UPDATE Users
             SET ?
             WHERE userID = ?;
-      `
-          //db
+      `;
+    //db
     database.query(strQry, [data, req.params.id], (err) => {
       if (err) throw err;
       res.status(200).json({ msg: "Password successfuly updated" });
@@ -196,4 +197,4 @@ class Product {
   }
 }
 
-module.exports = {User, Product};
+module.exports = { User, Product };

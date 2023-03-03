@@ -16,7 +16,7 @@ route.get('/', (req, res) => {
 
         //--USERS
 route.post('/login', bodyParser.json(), (req, res) =>{
-    User.login(req, res);
+    user.login(req, res);
 })
         //get all users
 route.get('/users', (req, res) => {
