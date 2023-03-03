@@ -1,9 +1,9 @@
 <template>
   <Navbar/>
   <div class="home">
-    <div class="container">
+    <div class="container text">
       <h1>Welcome</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam ducimus, accusantium facilis omnis deserunt maxime velit. Non veritatis totam est molestias aliquam ipsa dolorem velit accusamus libero, repellendus vel tenetur?</p>
+      <p>We Sell a Variety of Shoes to meet your pleasure!</p>
     </div>
   
           <div class="container">
@@ -75,6 +75,10 @@ export default {
 </script>
 
 <style>
+
+.text{
+  text-align: center;
+}
 .home{
   margin-top: 150px;
   min-height: 100vh;
