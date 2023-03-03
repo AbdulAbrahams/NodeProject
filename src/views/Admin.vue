@@ -1,6 +1,7 @@
 <template>
   <Navbar/>
-  <div class="users container">
+  <div class="cont">
+    <div class="users container">
     <h1 >Users</h1>
     <button type="button" class="btn btn-dark my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Add User
@@ -40,7 +41,6 @@
             <thead class="">
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Email</th>
                 <th>Role</th>
                 <th>Profile Image</th>
                 <th>Edit</th>
@@ -49,11 +49,10 @@
               <tr v-for="user in users" :key="user.id" style="font-size: 14px;">
                   <td>{{ user.firstName }}</td>
                   <td>{{ user.lastName }}</td>
-                  <td>{{ user.emailAdd }}</td>
                   <td>{{ user.userRole }}</td>
                   <td><img :src="user.userProfile" style="width: 60px; height: 50px;"></td>
                   <td>
-                    <a href="#" class="btn btn-dark btn-md edit" data-bs-toggle="modal" :data-bs-target="`#editModal${user.userID}`" id="addCart" style="font-size: 12px;">Edit</a>
+                    <a  class="btn btn-dark btn-md edit" data-bs-toggle="modal" :data-bs-target="`#editModal${user.userID}`" id="addCart" style="font-size: 12px;">Edit</a>
     <div class="modal fade" :id="`editModal${user.userID}`" :key="user.userID" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -68,20 +67,20 @@
               <p>Last Name</p>
               <input class="col-12 my-3" id="Brand" type="text" :value="user.lastName" required>
               <p>Email Address</p>
-              <input class="col-12 my-3" id="Price" type="text" :value="user.emailAdd" required>
+              <input class="col-12 my-3 emailAdd" id="Price" type="text" :value="user.emailAdd" required>
               <p>User Role</p>
               <input class="col-12 my-3" id="Price" type="text" :value="user.userRole" required>
               <p>Profile Image</p>
               <input class="col-12 my-3" id="img" type="text" :value="user.userProfile" required>
               <div class="modal-footer">
-                  <button type="Submit" class="btn btn-primary" data-bs-dismiss="modal" id="submit" value="submit">Edit Shoe</button>
+                  <button type="Submit" class="btn btn-light" data-bs-dismiss="modal" id="submit" value="submit">Edit User</button>
               </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-    <a href="#" id="${index}" class="btn btn-danger btn-md delete" onsubmit="delShoe(td)" style="font-size: 12px;">Del</a>
+    <button type="submit" class="btn btn-danger btn-md delete" @click="deleteUser" style="font-size: 12px;">Del</button>
                   </td>
     </tr>
 
@@ -115,7 +114,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary" @click="addProduct">Save changes</button>
       </div>
     </div>
   </div>
@@ -166,12 +165,14 @@
       </div>
     </div>
   </div>
-    <a href="#" id="${index}" class="btn btn-danger btn-md delete" onsubmit="delShoe(td)" style="font-size: 12px;">Del</a>
+    <button type="submit" class="btn btn-danger btn-md delete" style="font-size: 12px;" @click="deleteProduct">Del</button>
                   </td>
     </tr>
             </tbody>
         </table>
         </div>
+  </div>
+  
         <Footer/>
 </template>
 
@@ -197,6 +198,9 @@ import UpdateUser from "../components/UpdateUser.vue";
        this.fetchUsers();
    },
    methods: {
+    editUser() {
+            return this.$store.dispatch("editUser", this.user)
+        },
     async fetchUsers() {
            try{
                const response = await axios.get("https://sneaker-station-sqk8.onrender.com/users");
@@ -223,6 +227,14 @@ import UpdateUser from "../components/UpdateUser.vue";
                console.log(err);
            }
        },
+       async addProduct() {
+           try{
+               const response = await axios.post("https://sneaker-station-sqk8.onrender.com/products");
+               this.addProduct();
+           } catch(err) {
+               console.log(err);
+           }
+       },
        async deleteProduct(id) {
            try {
                await axios.delete(`https://sneaker-station-sqk8.onrender.com/products${id}`);
@@ -238,10 +250,14 @@ import UpdateUser from "../components/UpdateUser.vue";
 
 <style scoped>
 
+.cont{
+  overflow-x: hidden;
+}
+
 .users{
   justify-content: space-between;
   display: flex;
-  margin-top: 120px;
+  margin-top: 150px;
 }
 
 .products{
@@ -294,4 +310,5 @@ tbody{
 .btn-close{
   background-color: white;
 }
+
 </style>

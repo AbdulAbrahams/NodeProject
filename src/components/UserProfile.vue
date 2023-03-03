@@ -87,7 +87,7 @@ import axios from "axios";
 <style scoped>
 .profile{
     overflow-x: hidden;
-    margin-top: 120px;
+    margin-top: 150px;
     min-height: 100vh;
 }
 

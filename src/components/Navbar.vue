@@ -4,7 +4,7 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <span class="name">Sneaker Station</span>
+          <span class="name animate__animated animate__backInDown">Sneaker Station</span>
           <button type="button" class="btn position-relative">
             <i class="fa fa-shopping-cart cart"></i>
   <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill numbers">
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import 'animate.css';
 import axios from "axios";
     export default {
         name: 'Navbar',
@@ -54,7 +55,7 @@ import axios from "axios";
    methods: {
     async fetchUsers() {
            try{
-               const response = await axios.get("https://sneaker-station-sqk8.onrender.com/users");
+               const response = await axios.get(`https://sneaker-station-sqk8.onrender.com/users`);
                this.users = response.data.results;
                console.log(response);
            } catch (err) {
@@ -67,6 +68,13 @@ import axios from "axios";
 </script>
 
 <style  scoped>
+.my-element {
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: backInDown;
+  animation-duration: 2s;
+}
 
 .navbar{
   background-color: white;

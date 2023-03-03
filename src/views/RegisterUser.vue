@@ -1,6 +1,6 @@
 <template>
     <div class="body">
-        <div class="loginbox">
+        <div class="loginbox animate__animated animate__fadeIn">
             <h1 class="my-5">Register</h1>
             <form @submit.prevent="registerForm" method="POST" class="mx-4 my-5">
                 <div class="row">
@@ -18,6 +18,10 @@
             <p>Email</p>
           <input type="text" class="form-control" v-model="register.emailAdd" name="emailAdd" placeholder="Enter Email" aria-label="First name" required="">
         </div>
+      <div class="col">
+            <p>Cellphone Number</p>
+          <input type="text" class="form-control" v-model="register.cellphoneNumber" name="cellphoneNumber" placeholder="Enter Email" aria-label="First name" required="">
+        </div>
       </div>
       <div class="row">
         <div class="col">
@@ -29,9 +33,15 @@
           <input type="password" class="form-control"  v-model="register.userPass" name="userPass" placeholder="Enter Password" aria-label="Last name" required="">
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+            <p>User Role</p>
+          <input type="text" class="form-control" v-model="register.userRole" name="userRole" placeholder="userRole" aria-label="First name" required="">
+        </div>
+      </div>
 
 <div>
-<button class="btn btn-light" value="register" @click="submit">Register</button>
+<button type="submit" class="btn btn-light" value="register">Register</button>
 </div>
 
 <router-link to="/login"><a href="">Already have an account?</a></router-link>
@@ -44,35 +54,47 @@
 </template>
 
 <script>
+import 'animate.css';
     export default {
-        name: 'Register',
+        name: 'registerUser',
         data() {
         return {
             register: {
             firstName: "",
             lastName: "",
             emailAdd: "",
+            cellphoneNumber: "",
             gender: "",
             userPass: "", 
+            userRole: "",
+            userProfile: "https://i.postimg.cc/5t8VXxkc/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"
             }
             
         };
     },
     methods: {
-        async RegisterForm() {
-           await this.$store.dispatch(("RegisterForm", this.register), {
-                firstName: this.firstName,
-                lastName: this.lastName,
-                email: this.emailAdd,
-                gender: this.gender,
-                userPass: this.userPass,
-            });
+        async registerForm() {
+           await this.$store.dispatch("registerUser", this.register);
+            this.register.firstName = "";
+            this.register.lastName = "";
+            this.register.emailAdd = "";
+            this.register.cellphoneNumber = "";
+            this.register.gender = "";
+            this.register.userPass = "";
+            this.register.userRole = "";
+            this.register.userProfile = "https://i.postimg.cc/5t8VXxkc/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"
+
+            }
         }
     }
-    }
+    
 </script>
 
 <style scoped>
+.my-element {
+  animation: fadeIn;
+  animation-duration: 5s;
+}
 
 .body{
     margin: 0;

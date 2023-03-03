@@ -1,19 +1,19 @@
 <template>
     <div class="body">
-        <div class="loginbox p-2">
+        <div class="loginbox p-2  animate__animated animate__fadeIn">
             <h1 class="my-4">Login</h1>
             
-            <form action="/login" method="post" class="mx-3 my-3">
+            <form @submit.prevent="loginForm" method="post" class="mx-3 my-3">
     <div>
         <p>Email</p>
-       <input type="email" name="userEmail" id="email" class="my-2" placeholder="Enter Email" required> 
+       <input type="email" v-model="emailAdd" name="userEmail" id="email" class="my-2" placeholder="Enter Email" required> 
     </div>
     <div>
         <p>Password</p>
-        <input type="password" name="password" id="password" class="my-2" placeholder="Enter Password" required>
+        <input type="password" v-model="userPass" name="password" id="password" class="my-2" placeholder="Enter Password" required>
     </div>
     <div>
-        <button class="btn btn-light" type="submit" value="LOGIN">Login</button>
+        <router-link to="/"><button class="btn btn-light" type="submit">Login</button></router-link>
     </div>
     
     <a href="">Forgot Password?</a><br>
@@ -26,13 +26,38 @@
 </template>
 
 <script>
-import axios from "axios";
+import 'animate.css';
     export default {
+           computed: {
+        user() {
+            return this.$store.state.user
+        }
+    },
+        data() {
+        return {
+           emailAdd: "",
+           userPass: "",
         
+            
+        };
+    },
+    methods: {
+       async loginForm () {
+       await this.$store.dispatch("loginUser", {
+            emailAdd: this.emailAdd,
+            userPass: this.userPass
+        });
+       },
     }
+}
 </script>
 
 <style scoped>
+.my-element {
+  animation: fadeIn;
+  animation-duration: 5s;
+}
+
 
 .body{
     margin: 0;

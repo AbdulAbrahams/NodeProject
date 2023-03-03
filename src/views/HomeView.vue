@@ -12,9 +12,10 @@
               <div class="container">
                   <div class="box">
                     <div class="search">
-                 <input class="filter-input" id="search" v-model="search" type="text" placeholder="Search">
+                 <input class="filter-input" id="search" @click="searchProducts"  type="text" placeholder="Search">
              </div>
           </div>
+          <button id="sort" @click="sortPrice"><i class="bi bi-arrow-down"></i>Price<i class="bi bi-arrow-up"></i></button>
               </div>
               <Product/>
             </div>
@@ -42,6 +43,10 @@ export default {
            return searchedProducts;
        },
     methods: {
+      methods: {
+        sortPrice(){
+            this.$store.commit("sortProductsPrice")
+        }},
         sortProducts() {
             let sortKey = this.sortBy;
             return this.products.sort((a, b) => {
@@ -71,7 +76,7 @@ export default {
 
 <style>
 .home{
-  margin-top: 120px;
+  margin-top: 150px;
   min-height: 100vh;
 }
 

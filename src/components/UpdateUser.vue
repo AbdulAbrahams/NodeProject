@@ -1,4 +1,5 @@
 <template>
+  <a href="#" class="btn btn-dark btn-md edit" data-bs-toggle="modal" :data-bs-target="`#editModal${user.userID}`" id="addCart" style="font-size: 12px;">Edit</a>
     <div class="modal fade" :id="`editModal${user.id}`" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -26,6 +27,7 @@
       </div>
     </div>
   </div>
+  <a href="#" id="${index}" class="btn btn-danger btn-md delete" onsubmit="delShoe(td)" style="font-size: 12px;">Del</a>
 </template>
 
 <script>
